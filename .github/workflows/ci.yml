@@ -22,8 +22,20 @@ jobs:
       - name: Install dependencies with legacy peer deps
         run: npm ci --legacy-peer-deps
 
-      - name: Run start-server-and-test (web + Cypress)
-        run: npm run cy:run
+      - name: Start web app
+        run: |
+          nohup yarn start &> webapp.log &
+
+      - name: Wait for web app
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "✅ Web app is ready!"
+              break
+            fi
+            echo "⏳ Waiting for http://localhost:3000..."
+            sleep 2
+          done
 
       - name: Create secure fixture file
         run: |
