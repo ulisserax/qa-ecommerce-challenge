@@ -25,7 +25,8 @@
     "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-split": "^1.24.21",
     "multiple-cucumber-html-reporter": "^3.9.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "wait-on": "^8.0.4"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/integration/step_definitions",
