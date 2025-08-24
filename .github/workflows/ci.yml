@@ -22,20 +22,20 @@ jobs:
       - name: Install dependencies with legacy peer deps
         run: npm ci --legacy-peer-deps
 
-      - name: Start web app in background
-        run: |
-          nohup yarn start &> webapp.log &
+      #   - name: Start web app in background
+      #     run: |
+      #       nohup yarn start &> webapp.log &
 
-      - name: Wait for the web app to be ready
-        run: |
-          for i in {1..30}; do
-            if curl -s http://localhost:3000 > /dev/null; then
-              echo "✅ Web app is ready!"
-              break
-            fi
-            echo "⏳ Waiting for http://localhost:3000..."
-            sleep 2
-          done
+      #   - name: Wait for the web app to be ready
+      #     run: |
+      #       for i in {1..30}; do
+      #         if curl -s http://localhost:3000 > /dev/null; then
+      #           echo "✅ Web app is ready!"
+      #           break
+      #         fi
+      #         echo "⏳ Waiting for http://localhost:3000..."
+      #         sleep 2
+      #       done
 
       - name: Create secure fixture file
         run: |
@@ -62,7 +62,7 @@ jobs:
       - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v6
         with:
-          start: yarn start
+          start: yarn start & npx cypress run
           wait-on: "http://localhost:3000"
           record: true
           parallel: true
