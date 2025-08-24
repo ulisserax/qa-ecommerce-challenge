@@ -3,6 +3,7 @@ const cypressSplit = require("cypress-split");
 const cucumber = require("cypress-cucumber-preprocessor").default;
 
 module.exports = defineConfig({
+  projectId: "hc2mm6",
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/reports/mochawesome",

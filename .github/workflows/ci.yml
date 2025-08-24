@@ -1,6 +1,6 @@
 name: Cypress CI
 
-on: push
+on: [push]
 
 jobs:
   cypress-run:
@@ -8,11 +8,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4]
+        containers: [1, 2, 3, 4] # or adjust to [1, 2] if you're limited
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -22,11 +22,11 @@ jobs:
       - name: Install dependencies with legacy peer deps
         run: npm ci --legacy-peer-deps
 
-      - name: Start web app
+      - name: Start web app in background
         run: |
           nohup yarn start &> webapp.log &
 
-      - name: Wait for web app
+      - name: Wait for the web app to be ready
         run: |
           for i in {1..30}; do
             if curl -s http://localhost:3000 > /dev/null; then
@@ -62,6 +62,8 @@ jobs:
       - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v6
         with:
+          start: yarn start
+          wait-on: "http://localhost:3000"
           record: true
           parallel: true
           group: "CI"
