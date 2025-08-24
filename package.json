@@ -4,7 +4,7 @@
   "description": "Challenge de Cypress Parallelization con Cucumber y TypeScript.",
   "scripts": {
     "start": "react-scripts start",
-    "test": "cypress run",
+    "cy:run": "start-server-and-test start http://localhost:3000 'cypress run'",
     "test:parallel": "cypress run --parallel --record --key 47298b7b-69d6-42f5-a8da-9b9ed90784e4",
     "cypress:open": "cypress open"
   },
@@ -25,6 +25,7 @@
     "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-split": "^1.24.21",
     "multiple-cucumber-html-reporter": "^3.9.2",
+    "start-server-and-test": "^2.0.13",
     "typescript": "^5.1.6",
     "wait-on": "^8.0.4"
   },
