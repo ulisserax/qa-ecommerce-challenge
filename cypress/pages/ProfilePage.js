@@ -14,6 +14,7 @@ class ProfilePage {
 
   visit() {
     cy.visit("/profile");
+    cy.url().should("include", "/profile");
   }
 
   verifyProfilePicture() {
@@ -38,6 +39,7 @@ class ProfilePage {
 
   clickEditProfileButton() {
     this.elements.editProfileButton().click();
+    this.elements.userNameInput().should("be.visible");
   }
 
   changeUserName(newName) {
