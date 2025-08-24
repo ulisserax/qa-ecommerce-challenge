@@ -8,7 +8,7 @@ Background: User is on the checkout page after adding items to the cart
 Scenario: Fill out checkout form
     
     When I fill out the checkout form with valid information
-    And I click on the "Continue to Payment" button
+    And I click on the "Continue to Payment" button to pay for the product
     Then I should be redirected to the payment page
 
 Scenario Outline: Invalid fields

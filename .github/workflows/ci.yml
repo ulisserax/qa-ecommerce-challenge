@@ -1,0 +1,54 @@
+name: Cypress CI
+
+on: push
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3, 4]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create secure fixture file
+        run: |
+          mkdir -p cypress/fixtures
+          echo "{
+            \"firstName\": \"${{ secrets.FIRST_NAME }}\",
+            \"email\": \"${{ secrets.EMAIL }}\",
+            \"phone\": \"${{ secrets.PHONE }}\",
+            \"address\": {
+              \"street\": \"${{ secrets.STREET }}\",
+              \"city\": \"${{ secrets.CITY }}\",
+              \"state\": \"${{ secrets.STATE }}\",
+              \"zipCode\": \"${{ secrets.ZIP_CODE }}\"
+            },
+            \"country\": \"${{ secrets.COUNTRY }}\",
+            \"paymentDetails\": {
+              \"cardHolderName\": \"${{ secrets.CARD_HOLDER_NAME }}\",
+              \"cardNumber\": \"${{ secrets.CARD_NUMBER }}\",
+              \"expirationDate\": \"${{ secrets.CARD_EXPIRY }}\",
+              \"cvv\": \"${{ secrets.CARD_CVV }}\"
+            }
+          }" > cypress/fixtures/data.json
+
+      - name: Run Cypress tests in parallel
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          group: "CI"
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

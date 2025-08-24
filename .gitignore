@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+fixtures/data.json
 
 # IDE and Editor files
 .idea/

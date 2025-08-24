@@ -88,7 +88,7 @@ When("I fill out the checkout form with valid information", () => {
   );
 });
 
-And("I click on the {string} button", (buttonName) => {
+And("I click on the {string} button to pay for the product", (buttonName) => {
   CheckoutPage.clickContinueToPaymentButton(buttonName);
 });
 
