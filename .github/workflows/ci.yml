@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install dependencies with legacy peer deps
+      - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
       - name: Create secure fixture file
