@@ -49,6 +49,7 @@ jobs:
         with:
           start: yarn start
           wait-on: "http://localhost:3000"
+          browser: chrome
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
@@ -59,3 +60,10 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+
+      - name: Upload Mochawesome HTML report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: mochawesome-report
+          path: cypress/reports/mochawesome
