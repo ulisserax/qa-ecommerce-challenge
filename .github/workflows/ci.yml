@@ -23,7 +23,9 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: initialize the web app
-        run: yarn start
+        run: |
+          yarn start &    # Run in background
+          npx wait-on http://localhost:3000
 
       - name: Create secure fixture file
         run: |
