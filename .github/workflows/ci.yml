@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies with legacy peer deps
         run: npm ci --legacy-peer-deps
 
+      - name: initialize the web app
+        run: yarn start
+
       - name: Create secure fixture file
         run: |
           mkdir -p cypress/fixtures
