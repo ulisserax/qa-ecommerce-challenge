@@ -54,16 +54,16 @@ jobs:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
 
-      - name: Upload Cypress screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+    #   - name: Upload Cypress screenshots
+    #     if: always()
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: cypress-screenshots
+    #       path: cypress/screenshots
 
-      - name: Upload Mochawesome HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: mochawesome-report
-          path: cypress/reports/mochawesome
+    #   - name: Upload Mochawesome HTML report
+    #     if: always()
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: mochawesome-report
+    #       path: cypress/reports/mochawesome
