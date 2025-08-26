@@ -25,24 +25,26 @@ jobs:
       - name: Create secure fixture file
         run: |
           mkdir -p cypress/fixtures
-          echo "{
-            \"firstName\": \"${{ secrets.FIRST_NAME }}\",
-            \"email\": \"${{ secrets.EMAIL }}\",
-            \"phone\": \"${{ secrets.PHONE }}\",
-            \"address\": {
-              \"street\": \"${{ secrets.STREET }}\",
-              \"city\": \"${{ secrets.CITY }}\",
-              \"state\": \"${{ secrets.STATE }}\",
-              \"zipCode\": \"${{ secrets.ZIP_CODE }}\"
+          cat <<EOF > cypress/fixtures/data.json
+          {
+            "firstName": "${{ secrets.FIRST_NAME }}",
+            "email": "${{ secrets.EMAIL }}",
+            "phone": "${{ secrets.PHONE }}",
+            "address": {
+              "street": "${{ secrets.STREET }}",
+              "city": "${{ secrets.CITY }}",
+              "state": "${{ secrets.STATE }}",
+              "zipCode": "${{ secrets.ZIP_CODE }}"
             },
-            \"country\": \"${{ secrets.COUNTRY }}\",
-            \"paymentDetails\": {
-              \"cardHolderName\": \"${{ secrets.CARD_HOLDER_NAME }}\",
-              \"cardNumber\": \"${{ secrets.CARD_NUMBER }}\",
-              \"expirationDate\": \"${{ secrets.CARD_EXPIRY }}\",
-              \"cvv\": \"${{ secrets.CARD_CVV }}\"
+            "country": "${{ secrets.COUNTRY }}",
+            "paymentDetails": {
+              "cardHolderName": "${{ secrets.CARD_HOLDER_NAME }}",
+              "cardNumber": "${{ secrets.CARD_NUMBER }}",
+              "expirationDate": "${{ secrets.CARD_EXPIRY }}",
+              "cvv": "${{ secrets.CARD_CVV }}"
             }
-          }" > cypress/fixtures/data.json
+                    }
+          EOF
 
       - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v6
